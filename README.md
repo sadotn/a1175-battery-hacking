@@ -1,4 +1,5 @@
 A1175 Battery Hacking
+Source: https://squidgeefish.com/projects/a1175-battery-hacking/
 
 Background
 With the release of Intel-based MacBooks in 2006, Apple started using “smart battery monitor” chips that track current in and out of the battery to provide more realistic battery life estimations. However, this means that, unlike the PowerPC laptops, failed battery cells cannot simply be replaced: disconnecting cells triggers a permanent failure flag in the battery monitor, disabling the battery. I hate it when that happens…
