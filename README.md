@@ -2,6 +2,22 @@
 https://squidgeefish.com/projects/a1175-battery-hacking/
 ---
 
+PDF BQ30Z55
+Unseal/Full Access
+1. Send Unseal (0x0031) or Full Access (0x0032) command to ManufacturerAccess().
+2. Read 160-bit message M from ManufacturerInput() in the format
+0xAABBCCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTT, where AA is LSB.
+3. Generate SHA-1 input block B1 of 512 bytes (total input =128-bit unseal/full access key KD + 160 bit
+message M + 1 + 159 0s + 100100000).
+4. Generate SHA-1 hash HMAC1 using B1.
+5. Generate SHA-1 input block B2 of 512 bytes (total input =128-bit unseal/full access key KD + 160 bit
+hash HMAC1 + 1 + 159 0s + 100100000).
+6. Generate SHA-1 hash HMAC2 using B2.
+7. Write 160-bit hash HMAC2 to ManufacturerInput() in the format
+0xAABBCCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTT, where AA is LSB.
+8. Device compares hash HMAC2 with internal calculated hash HMAC3. If it matches, device allows
+UNSEALED/FULL ACCESS mode indicated with the OperationStatus()[SEC1],[SEC0] flags.
+
 ## Background
 With the release of Intel-based MacBooks in 2006, Apple started using "smart battery monitor" chips that track current in and out of the battery to provide more realistic battery life estimations. However, this means that, unlike the PowerPC laptops, failed battery cells cannot simply be replaced: disconnecting cells triggers a permanent failure flag in the battery monitor, disabling the battery. I hate it when that happens...
 
